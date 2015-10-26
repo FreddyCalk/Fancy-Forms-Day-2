@@ -6,41 +6,83 @@
 	<title>Fancy Form 2</title>
 	<link rel="stylesheet" type="text/css" href="CSS/reset.css">
 	<link rel="stylesheet" type="text/css" href="CSS/styles2.css">
+	<link rel="stylesheet" type="text/css" href="CSS/css/bootstrap.min.css">
 </head>
 <body>
 	<div class="form-wrapper">
-		<fieldset>
+		<form name='moreInfoForm' onsubmit='return (validateForm())'>	
+			<fieldset>
+				<div id="big-wrapper" class="form-group">
+					<legend><span class="number">1</span>Candidate Info</legend>
+				
+					<input class="form-control" type="text" name="name" placeholder="Your Name*">
+				
+					<input class="form-control" type="text" name="email" placeholder="Your email*">
+				
+					<textarea class="form-control" name="about" placeholder="Tell us about yourself*"></textarea>
+				
+					<label> Interests:</label>
+				
+					<select name="interests" multiple>	
+						<option value="programming">Programming</option>
+						<option value="golfing">Golfing</option>
+						<option value="running">Running</option>
+						<option value="alpine skiing">Alpine Skiing</option>
+						<option value="wakeboarding">Wakeboarding</option>
+						<option value="video games">Video Games</option>
+						<option value="cooking">Cooking</option>
+						<option value="AU">Auburn Football</option>
+				
+					</select>
+				</div>	
+			</fieldset>
 
-			<legend><span class="number">1</span>Candidate Info</legend>
-		
-			<input type="text" name="name" placeholder="Your Name*">
-		
-			<input type="email" name="name" placeholder="Your email*">
-		
-			<textarea name="about" placeholder="Tell us about yourself*"></textarea>
-		
-			<label> Interests:</label>
-		
-			<select name="interests" multiple>	
-				<option value="programming">Programming</option>
-				<option value="golfing">Golfing</option>
-				<option value="running">Running</option>
-				<option value="alpine skiing">Alpine Skiing</option>
-				<option value="wakeboarding">Wakeboarding</option>
-				<option value="video games">Video Games</option>
-				<option value="cuisine">Cuisine</option>
-				<option value="AU">Auburn Football</option>
-		
-			</select>
-		
-		</fieldset>
-
-		<fieldset>
-			<legend><span class="number">2</span> Additional Info</legend>
-			<textarea name="school" placeholder="About Your School*"></textarea>
-		</fieldset>
-		<button type="submit">Apply</button>
-
+			<fieldset>
+				<div id="small-wrapper" class="form-group">
+					<legend><span class="number">2</span> Additional Info</legend>
+					<textarea class="form-control" name="school" placeholder="About Your School*"></textarea>
+				</div>
+			</fieldset>
+				<button type="submit">Apply</button>
+		</form>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src='CSS/js/bootstrap.js'></script>
+	<script>
+		function validateForm(){
+			if(moreInfoForm.name.value.length < 5){
+				moreInfoForm.name.focus()
+				alert("you must enter your full name")
+				document.getElementById('big-wrapper').className = "form-group has-error";
+				return false;
+			}
+			if((moreInfoForm.email.value.indexOf('.')<=-1)||(moreInfoForm.email.value.indexOf('@')<=-1)){
+				moreInfoForm.email.focus()
+				alert("You must enter a valid email address")
+				document.getElementById('big-wrapper').className = 'form-group has-error';
+				return false;
+			}
+			if(moreInfoForm.about.value.length < 20){
+				moreInfoForm.about.focus()
+				alert('"About Me" must be more than 20 characters')
+				document.getElementById('big-wrapper').className = "form-group has-error";
+				return false;
+			}
+			if(moreInfoForm.school.value.length < 20){
+				moreInfoForm.school.focus()
+				alert('"Additional Info" must be more than 20 characters')
+				document.getElementById('small-wrapper').className = "form-group has-error";
+				return false;
+			}
+			if(moreInfoForm.interests.value === ""){
+				moreInfoForm.interests.focus()
+				alert("you must select at least 1 interest")
+				document.getElementById('big-wrapper').className = "form-group has-error"
+				return false;
+			}
+
+		}
+	</script>
+
 </body>
 </html>

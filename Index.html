@@ -5,55 +5,134 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Fancy Form 1</title>
 	<link rel="stylesheet" type="text/css" href="CSS/reset.css">
-
 	<link rel="stylesheet" type="text/css" href="CSS/styles.css">
-
+	<link rel="stylesheet" type="text/css" href="CSS/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src='CSS/js/bootstrap.js'></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 </head>
 <body>
 
 	<div class="form-wrapper">
-		
-		<h1>Sign Up Now! <span>Sign up and tell us what you think!</span></h1>
+		<form name="signUpForm" onsubmit="return (validateForm());">	
+			<div id="name-wrapper" class="form-group">
+				<h1>Sign Up Now! <span>Sign up and tell us what you think!</span></h1>
 
-		<div class="section"><span>1</span> Name & Address</div>
+				<div class="section"><span>1</span> Name & Address</div>
 
-		<div class="inner-wrap">
+				<div class="inner-wrap">
 
-			<label>Your Full Name <input type="text" name="fullName" placeholder="Last Name First"></label>
+					<label>Your Full Name <input class = 'form-control' type="text" name="fullName" placeholder="Last Name First"></label>
 
-			<label>Street Address <textarea name="address" placeholder="1807 Meadowdale Ave NE"></textarea></label>
+					<label>Birthday <input type="text" id="datepicker" placeholder="YYYY/MM/DD"></label>
+					<div>
+						<label for="spinner">Age:</label>
+						<input id="spinner" value="30">
+					</div>
 
-		</div>
+					<label>Street Address <textarea class='form-control' name="address" placeholder="1807 Meadowdale Ave NE"></textarea></label>
+					<div class="ui-widget">
+						<label for="techs">Favorite Technology</label>
+						<input id="techs">
+					</div>
 
-		<div class="section"><span>2</span> Email & Phone</div>
+				</div>
+			
+				<div class="section"><span>2</span> Email & Phone</div>
 
-		<div class="inner-wrap">
+				<div id = 'email-phone-wrapper' class="inner-wrap">
 
-			<label>Email Address <input type="email" name="emailAddress"></label>
+					<label>Email Address <input id="email" class='form-control' type="text" name="emailAddress" placeholder='freddycalk@gmail.com'></label>
 
-			<label>Phone Number <input type="text" name="phoneNumber"></label>
-		
-		</div>
-		
-		<div class="section"><span>3</span> Password</div>
-		
-		<div class="inner-wrap">
-		
-			<label>Password <input type="password" name="password"></label>
-		
-			<label>Confirm Password <input type="password" name="passwordConfirm"></label>
-		
-		</div>
-		
-		<div class="submission">
-		
-			<button type="submit">Sign me up!</button>
-		
-			<span><input type="checkbox" name="privacy">I agree to the Terms and Conditions</span>
-		
-		</div>
-	
+					<label>Phone Number <input id="phone" type="text" class='form-control' name="phoneNumber" placeholder='(404) 293-4280'></label>
+				
+				</div>
+				
+				<div class="section"><span>3</span> Password</div>
+				
+				<div id = 'password-wraper'class="inner-wrap">
+				
+					<label>Password <input id="password" class="form-control" type="password" name="password"></label>
+				
+					<label>Confirm Password <input id="password-confirm" class='form-control' type="password" name="passwordConfirm"></label>
+				
+				</div>
+				
+				<div class="submission">
+				
+					<button type="submit">Sign me up!</button>
+				
+					<span><input type="checkbox" name="privacy">I agree to the Terms and Conditions</span>
+				
+				</div>
+			</div>
+		</form>
 	</div>
 	
+	<script type='text/javascript'>
+	$(function(){
+		$("#datepicker").datepicker({
+			dateFormat: "yy/mm/dd"
+		});
+	})
+	$(function(){
+		var availableTags = [
+		"JavaScript",
+		"swift",
+		"CSS3",
+		"HTML5",
+		"PHP",
+		"Linux",
+		"jQuery"];
+		$("#techs").autocomplete({
+			source: availableTags
+		});
+	});
+	$(function(){
+		var spinner = $("#spinner").spinner();
+
+	})
+	function validateForm(){
+		$('#name').val()
+		if(signUpForm.fullName.value.length < 5){
+			signUpForm.fullName.focus();
+			alert("You must enter your full name")
+			document.getElementById('name-wrapper').className = 'form-group has-error';
+			return false;
+		}
+		if(signUpForm.address.value.length<10){
+			signUpForm.address.focus()
+			alert("You must enter your full address")
+			document.getElementById('name-wrapper').className = 'form-group has-error';
+			return false;
+		}
+		if((signUpForm.emailAddress.value.indexOf('.') <= -1)||(signUpForm.emailAddress.value.indexOf('@') <= -1)){
+			signUpForm.emailAddress.focus()
+			alert("You must enter a valid email address")
+			document.getElementById('email-phone-wrapper').className = 'inner-wrap form-group has-error';
+			return false;
+		}
+
+		if(signUpForm.password.value.length < 6){
+			signUpForm.password.focus()
+			alert("Your password must be at least 6 characters")
+			document.getElementById('password-wrapper').className = 'inner-wrap form-group has-error'
+			return false;
+		}
+		else if(signUpForm.password.value !== signUpForm.passwordConfirm.value){
+			signUpForm.password.focus();
+			alert("Your passwords do not match")
+			return false;
+		}
+	}
+
+	</script>
+
+
+
+
+
+
 </body>
 </html>
